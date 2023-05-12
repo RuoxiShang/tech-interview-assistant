@@ -1,7 +1,7 @@
 import os
 import openai
 import argparse
-openai.api_key = "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"
+openai.api_key = os.getenv("OPENAI_API_KEY")
 
 def tag_stage1(user_input, coding_problem):
     instruction = """Now is the question clarification stage of a technical interview. 
