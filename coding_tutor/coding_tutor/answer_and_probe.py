@@ -3,6 +3,9 @@ import openai
 import argparse
 openai.api_key = ""
 
+def set_api_key(key):
+    openai.api_key = key
+
 def tag_stage1(user_input, coding_problem):
     instruction = """Now is the question clarification stage of a technical interview. 
     You need to flag their question using the following schema, if the input is:
@@ -68,16 +71,3 @@ class Stage1_Question_Clarification:
         question = response['choices'][0]['message']['content']
         self.conversation.append({"role": "assistant", "content": question})
         return question
-
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--answer", type=str, help="Input string for the 'answer' function")
-    parser.add_argument("--probe", action='store_true', help="Call the 'probe' function")
-    args = parser.parse_args()
-
-    stage1 = Stage1_Question_Clarification()
-
-    if args.answer:
-        print(stage1.answer(args.answer))
-    elif args.probe:
-        print(stage1.probe())
